@@ -1,6 +1,22 @@
 import { mat4 } from 'gl-matrix';
 import * as twgl from 'twgl.js'
 
+
+interface BufferData {
+    position: Float32Array;
+    texCoord: Float32Array;
+    normals: Float32Array;
+    colors: Float32Array;
+    indices: Float32Array;
+}
+
+interface UniformData {
+    world: mat4;
+    view: mat4;
+    proj: mat4;
+    texture: WebGLTexture;
+}
+
 /**
  * @description GL class provide WebGL commands
  */
@@ -52,7 +68,7 @@ export class GL extends WebGLRenderingContext {
      * @param alpha The alpha value that glClear uses to clear the color buffers. The default value is zero.
      */
     public static clearColor(red: number = 0, green: number = 0, blue: number = 0, alpha: number = 0) {
-        
+
     }
 
     /**
@@ -68,14 +84,14 @@ export class GL extends WebGLRenderingContext {
      * @param mode The primitive or primitives that will be created from vertices presented 
      *              between begin and the subsequent end
      */
-    public static begin(mode: number) { 
+    public static begin(mode: number) {
 
     }
 
     /**
      * The glEnd function delimit the vertices of a primitive or a group of like primitives. 
      */
-    public static end() { 
+    public static end() {
 
     }
 
@@ -83,7 +99,7 @@ export class GL extends WebGLRenderingContext {
      * The glEnable function enable WebGL capabilities.
      * @param cap A symbolic constant indicating an OpenGL capability
      */
-    public static enable(cap: number) { 
+    public static enable(cap: number) {
 
     }
 
@@ -91,14 +107,14 @@ export class GL extends WebGLRenderingContext {
      * The glDisable function disable OpenGL capabilities.
      * @param cap A symbolic constant indicating an OpenGL capability
      */
-    public static disable(cap: number) { 
+    public static disable(cap: number) {
 
     }
 
     /**
      * The glLoadIdentity function replaces the current matrix with the identity matrix.
      */
-    public static loadIdentity() { 
+    public static loadIdentity() {
 
     }
 
@@ -107,7 +123,7 @@ export class GL extends WebGLRenderingContext {
      * @param mode The matrix stack that is the target for subsequent matrix operations.
      * The mode parameter can assume one of two values: MODELVIEW, PROJECTION
      */
-    public static matrixMode(mode: number) { 
+    public static matrixMode(mode: number) {
 
     }
 
@@ -120,7 +136,7 @@ export class GL extends WebGLRenderingContext {
      * @param zNear The distances to the nearer depth clipping plane. This distance is negative if the plane is to be behind the viewer.
      * @param zFar The distances to the farther depth clipping plane. This distance is negative if the plane is to be behind the viewer.
      */
-    public static ortho(left: number, right: number, bottom: number, top: number, zNear: number, zFar: number) { 
+    public static ortho(left: number, right: number, bottom: number, top: number, zNear: number, zFar: number) {
 
     }
 
@@ -131,7 +147,7 @@ export class GL extends WebGLRenderingContext {
      * @param zNear The distance from the viewer to the near clipping plane (always positive).
      * @param zFar The distance from the viewer to the far clipping plane (always positive).
      */
-    public static perspective(fovy: number, aspect: number, zNear: number, zFar: number) { 
+    public static perspective(fovy: number, aspect: number, zNear: number, zFar: number) {
 
     }
 
@@ -142,7 +158,7 @@ export class GL extends WebGLRenderingContext {
      * @param up The direction of the up vector.
      */
     public static lookAt(eye: number[], center: number[], up: number[]) {
-        
+
     }
 
     /**
@@ -153,7 +169,7 @@ export class GL extends WebGLRenderingContext {
      * @param pname A light source parameter for light [AMBIENT, DIFFUSE, SPECULAR, POSITION].
      * @param params Specifies the value that parameter pname of light source light will be set to.
      */
-    public static light(light: number, pname: number, params: number | number[]) { 
+    public static light(light: number, pname: number, params: number | number[]) {
 
     }
 
@@ -165,7 +181,7 @@ export class GL extends WebGLRenderingContext {
     /**
      * The glPopMatrix function pop the current matrix stack.
      */
-    public static popMatrix() { 
+    public static popMatrix() {
 
     }
 
@@ -192,7 +208,7 @@ export class GL extends WebGLRenderingContext {
      * Sets the current texture coordinates.
      * @param s The s texture coordinate.
      */
-    public static textCoord1(s: number) { 
+    public static textCoord1(s: number) {
 
     }
 
@@ -201,7 +217,7 @@ export class GL extends WebGLRenderingContext {
      * @param s The s texture coordinate.
      * @param t The t texture coordinate.
      */
-    public static textCoord2(s: number, t: number) { 
+    public static textCoord2(s: number, t: number) {
 
     }
 
@@ -211,14 +227,7 @@ export class GL extends WebGLRenderingContext {
      * @param ny Specifies the y-coordinate for the new current normal vector.
      * @param nz Specifies the z-coordinate for the new current normal vector.
      */
-    public static normal3(nx: number, ny: number, nz: number): void;
-
-    /**
-     * Sets the current normal vector.
-     * @param v A array of three elements: the x, y, and z coordinates of the new current normal.
-     */
-    public static normal3(v: number[]): void;
-    public static normal3(p1: number[] | number, p2?: number, p3?: number): void {
+    public static normal3(nx: number, ny: number, nz: number) {
 
     }
 
@@ -260,7 +269,7 @@ export class GL extends WebGLRenderingContext {
      * width and height are set to the dimensions of that window.
      */
     public static scissor(x: number, y: number, width: number, height: number) {
-        
+
     }
 
     /**
@@ -269,7 +278,7 @@ export class GL extends WebGLRenderingContext {
      * @param y The y coordinate of a translation vector.
      * @param z The z coordinate of a translation vector.
      */
-    public static translate(x: number, y: number, z: number) { 
+    public static translate(x: number, y: number, z: number) {
 
     }
 
@@ -280,7 +289,7 @@ export class GL extends WebGLRenderingContext {
      * @param y The y coordinate of a vector.
      * @param z The z coordinate of a vector.
      */
-    public static rotate(angle: number, x: number, y: number, z: number) { 
+    public static rotate(angle: number, x: number, y: number, z: number) {
 
     }
 
@@ -290,7 +299,7 @@ export class GL extends WebGLRenderingContext {
      * @param y Scale factors along the y axis
      * @param z Scale factors along the z axis
      */
-    public static scale(x: number, y: number, z: number) { 
+    public static scale(x: number, y: number, z: number) {
 
     }
 
@@ -324,9 +333,7 @@ export class GL extends WebGLRenderingContext {
         return GL.instance._gl;
     }
 
-    private matrixStack: Array<{
-        u_world: mat4,
-        u_view: mat4,
-        u_proj: mat4,
-    }>
+    private bufferStack: Array<BufferData>;
+
+    private uniformStack: Array<UniformData>;
 }
