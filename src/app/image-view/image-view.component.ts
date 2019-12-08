@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { GL, glNormal3 } from '../shared/webgl-function';
+import { GL } from '../shared/webgl-function';
 
 @Component({
   selector: 'app-image-view',
